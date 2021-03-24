@@ -20,6 +20,28 @@ class User < ApplicationRecord
   validates :email, :presence => true
   has_secure_password
 
+
+  def followers
+  us_id = self.id
+
+  matching_follows = FollowRequest.all.where({ :recipient_id => us_id})
+  count = matching_follows.count
+
+  return matching_follows
+  end
+
+
+
+  def following
+  us_id = self.id
+
+  matching_follows = FollowRequest.all.where({ :sender_id => us_id})
+  count = matching_follows.count
+
+  return matching_follows
+  end
+
+
 has_many(:likes, { :class_name => "Like", :foreign_key => "fan_id", :dependent => :destroy })
 has_many(:comments, { :class_name => "Comment", :foreign_key => "author_id", :dependent => :destroy })
 has_many(:sent_follow_requests, { :class_name => "FollowRequest", :foreign_key => "sender_id", :dependent => :destroy })
@@ -31,5 +53,7 @@ has_many(:received_follow_requests, { :through => :received_follow_requests, :so
 has_many(:liked_photos, { :through => :likes, :source => :photo })
 has_many(:feed, { :through => :recipients, :source => :own_photos })
 has_many(:activity, { :through => :recipients, :source => :liked_photos })
+
+
 
 end

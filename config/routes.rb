@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   get("/", { :controller => "users", :action => "index"})
   get("/users/:the_username", { :controller => "users", :action => "show"})
 
+  get("/users/:the_username/liked_photos", { :controller => "users", :action => "show_liked_photos"})
+  get("/users/:the_username/feed", { :controller => "users", :action => "show_feed"})
+  get("/users/:the_username/discover", { :controller => "users", :action => "show_discover"})
 
 
   # Routes for the Comment resource:

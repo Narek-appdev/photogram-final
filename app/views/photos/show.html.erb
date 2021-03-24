@@ -1,22 +1,17 @@
 <div>
   <div>
     <h1>
-      Photo #<%= @the_photo.id %> details
+      Photo Details
     </h1>
 
-    <div>
-      <div>
-        <a href="/photos">
-          Go back
-        </a>
-      </div>
+      <dt>
+        Image
+      </dt>
+      <dd>
+        <img src="<%= @the_photo.image %>">
+    </dd>
 
-      <div>
-        <a href="/delete_photo/<%= @the_photo.id %>">
-          Delete photo
-        </a>
-      </div>
-    </div>
+
 
     <dl>
       <dt>
@@ -27,17 +22,17 @@
       </dd>
 
       <dt>
-        Image
-      </dt>
-      <dd>
-        <%= @the_photo.image %>
-      </dd>
-
-      <dt>
         Owner
       </dt>
       <dd>
         <%= @the_photo.owner_id %>
+      </dd>
+
+      <dt>
+        Posted
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_photo.created_at) %> ago
       </dd>
 
       <dt>
@@ -55,32 +50,26 @@
       </dd>
 
       <dt>
-        Created at
+        Fans
       </dt>
       <dd>
-        <%= time_ago_in_words(@the_photo.created_at) %> ago
+        <% @the_photo.fans.each do |a_fan| %>
+        <%= a_fan.username%>
+        <%end%> 
       </dd>
 
       <dt>
-        Updated at
+        Add a fan
       </dt>
       <dd>
-        <%= time_ago_in_words(@the_photo.updated_at) %> ago
+        Like button
       </dd>
-    </dl>
-  </div>
-</div>
 
-<hr>
-
-
-<div>
-  <div>
-    <h2>
-      Edit photo
-    </h2>
-
-    <form action="/modify_photo/<%= @the_photo.id %>"  method="post" >
+      <dt>
+        Edit photo
+      </dt>
+      <dd>
+            <form action="/modify_photo/<%= @the_photo.id %>"  method="post" >
       <div>
         <label for="caption_box">
           Caption
@@ -125,7 +114,19 @@
         Update photo
       </button>
     </form>
-  </div>
-</div>
+      </dd>
 
-<hr>
+
+      <dt>
+        Delete this photo
+      </dt>
+      <dd>
+        <a href="/delete_photo/<%= @the_photo.id %>">
+          Delete this photo
+      </dd>
+
+
+
+
+    </dl>
+

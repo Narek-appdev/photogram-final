@@ -12,4 +12,10 @@
 #  owner_id       :integer
 #
 class Photo < ApplicationRecord
+
+  belongs_to(:owner, { :required => false, :class_name => "User", :foreign_key => "owner_id", :counter_cache => :own_photos_count })
+  has_many(:likes, { :class_name => "Like", :foreign_key => "photo_id", :dependent => :destroy })
+  has_many(:fans, { :through => :likes, :source => :user })
+  
+
 end

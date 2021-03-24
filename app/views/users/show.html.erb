@@ -1,4 +1,100 @@
-hello
+<h1> <%= @the_user.username%> </h1>
 
-<%= @the_user.private%>
-<%= @the_user.username%>
+
+<dl>
+  <dt>Private</dt>
+  <dd> <%= @the_user.private %> </dd>
+
+  <dt>Followers</dt>
+  <dd>
+    <%= @the_user.recipients.count %>
+
+
+      <div>
+          <form action="/insert_follow_request" method="post">
+            <input type="hidden" name="query_recipient_id" value="114">
+
+            <button>
+              Follow
+            </button>
+          </form>
+    </div>
+
+  </dd>
+
+  <dt>Following</dt>
+  <%= @the_user.recipients.count %>
+
+</dl>
+
+<nav>
+  <ul>
+    <li>
+      <a href="/users/<%= @the_user.username%>">Profile</a>
+    </li>
+    <li>
+      <a href="/users/chi/liked_photos">Liked photos</a>
+    </li>
+    <li>
+      <a href="/users/chi/feed">Feed</a>
+    </li>
+    <li>
+      <a href="/users/chi/discover">Discover</a>
+    </li>
+  </ul>
+</nav>
+
+<h2>Own photos (13)</h2>
+
+<table border="1">
+  <tr>
+    <th>
+      Image
+    </th>
+
+    <th>
+      Owner
+    </th>
+
+    <th>
+      Caption
+    </th>
+
+    <th>
+      Posted
+    </th>
+
+    <th>
+      Likes
+    </th>
+
+    <th></th>
+  </tr>
+
+  <tr>
+    <td>
+      <img src="https://robohash.org/veritatispraesentiumet">
+    </td>
+
+    <td>
+      chi
+    </td>
+
+    <td>
+      And I have a tender spot in my heart for cripples and bastards and broken things.
+    </td>
+
+    <td>
+      over 3 years ago
+    </td>
+
+    <td>
+      9
+    </td>
+
+    <td>
+      <a href="/photos/893">
+        Show details
+      </a>
+    </td>
+  </tr>

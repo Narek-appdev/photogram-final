@@ -32,7 +32,7 @@
       
    
 
-    <% if session.fetch(:user_id) %>
+    <% if session.fetch(:user_id) && User.all.where({:id => session.fetch(:user_id)}).at(0) %>
       <li>
         <a href="/user_sign_out">
           <%= User.all.where({:id => session.fetch(:user_id)}).at(0).username%>
@@ -62,6 +62,18 @@
    
     </ul>
     
+  <% if notice.present? %>
+  <div style="border:thin green solid; color:green">
+    <%= notice %>
+  </div>
+  <% end %>
+
+  <% if alert.present? %>
+  <div style="border:thin red solid; color:red">
+    <%= alert %>
+  </div>
+  <%end%>
+
     <%= yield %>
   </body>
 </html>

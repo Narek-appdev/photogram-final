@@ -122,11 +122,47 @@
       </dt>
       <dd>
         <a href="/delete_photo/<%= @the_photo.id %>">
-          Delete this photo
+          Delete this photo </a>
       </dd>
 
+    <h2>Comments</h2>
 
+  <table>
+  <tr>
+    <th>Commenter</th>
+    <th>Comment</th>
+    <th>Posted</th>
+  </tr>
+    
+    <% Comment.all.where({:photo_id => @the_photo.id}).each do |a_comment|%>
+    <tr>
+      <td>
+        <%= User.all.where({ :id => a_comment.author_id}).at(0).username %>
+      </td>
 
+      <td>
+        <%= a_comment.author_id %>
+      </td>
 
-    </dl>
+      <td>
+        <%= time_ago_in_words(a_comment.created_at) %> ago
+      </td>
+    </tr>  
+    <tr>
+    <%end%>
 
+  </table>
+
+<h3>Add a new comment</h3>
+
+<form action="/insert_comment" method="post">
+
+  
+  <label for="browser_comment">Comment</label>
+  <textarea id="browser_comment" name="query_body" placeholder="Enter a comment..."></textarea>
+
+  <input type="hidden" value="<%=@the_photo.id%>" name="query_photo_id">
+  <input type="hidden" value="<%=session.fetch(:user_id)%>" name="query_author_id">
+
+  <button>Add comment</button>
+</form>

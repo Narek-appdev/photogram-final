@@ -70,7 +70,9 @@
     <th></th>
   </tr>
 
-  <% @the_user.own_photos.each do |a_photo| %>
+  <% @the_user.following.each do |a_follow_request|%>
+  <% persons = User.all.where({:id => a_follow_request.recipient})%>
+  <% persons.own_photos.each do |a_photo| %>
   <tr>
     <td>
       <img src="<%= a_photo.image %>">
@@ -98,4 +100,5 @@
       </a>
     </td>
   </tr>
+  <%end%>
   <%end%>

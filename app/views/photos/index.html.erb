@@ -10,6 +10,8 @@
 
 <div>
   <div>
+
+<% if session.fetch(:user_id) %>
     <h2>
       Add a new photo
     </h2>
@@ -22,28 +24,18 @@
   <textarea id="browser_caption" name="query_caption" placeholder="Enter a caption for the photo..."></textarea>
 
 
+  <input type="hidden" id="owner_id_box" name="query_owner_id" value="<%=session.fetch(:user_id)%>" >
 
-  <label for="owner_id_box">
-    Owner
-  </label>
-  <input type="hidden" id="owner_id_box" name="query_owner_id">
+      
 
-
-
-  <label for="likes_count_box">
-    Likes count
-  </label>
-  <input type="text" id="likes_count_box" name="query_likes_count">
-
-
-
-  <label for="comments_count_box">
-    Comments count
-  </label>
-  <input type="text" id="comments_count_box" name="query_comments_count">
+<button>
+Add photo
+</button>
       
 
 </form>
+
+<%end%>
   </div>
 </div>
 

@@ -51,7 +51,7 @@ Add photo
   </tr>
 
   <% @list_of_photos.each do |a_photo| %>
-
+  <% if a_photo.owner.private == false%>
     <tr>
       <td>
         <img src="<%=a_photo.image%>">
@@ -79,4 +79,5 @@ Add photo
         </a>
       </td>
     </tr>
+    <%end%>
     <%end%>

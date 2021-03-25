@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get("/users/:the_username/discover", { :controller => "users", :action => "show_discover"})
 
 
-  # Routes for the Comment resource:
+  # Routes for the COMMENT resource:
 
   # CREATE
   post("/insert_comment", { :controller => "comments", :action => "create" })
@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   #------------------------------
 
-  # Routes for the Follow request resource:
+  # Routes for the FOLLOW request resource:
 
   # CREATE
   post("/insert_follow_request", { :controller => "follow_requests", :action => "create" })

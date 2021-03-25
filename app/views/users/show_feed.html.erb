@@ -9,15 +9,38 @@
   <dd> <%= @the_user.followers.count %> </dd>
 
 
-      <div>
-          <form action="/insert_follow_request" method="post">
-            <input type="hidden" name="query_recipient_id" value="114">
+<div>
+  <% the_follow_request = FollowRequest.where( :sender_id => @current_user.id, :recipient_id => @the_user.id ).at(0)%>
+  <% if the_follow_request == nil && @the_user.id != @current_user.id  %>
+      <form action="/insert_follow_request" method="post">
+      <input type="hidden" name="query_recipient_id" value="<%= @the_user.id %>">
+      <input type="hidden" name="query_sender_id" value="<%= @current_user.id %>">
+      <input type="hidden" name="query_status" value="accepted">
+      <button>
+        Follow
+      </button>
+    </form>
+  
+  <% elsif @the_user.id != @current_user.id %>
+    <a href="/delete_follow_request/<%= the_follow_request.id %>" >Unfollow </a>
+   
+  <% end %>
+</div>
 
-            <button>
-              Follow
-            </button>
-          </form>
-    </div>
+<% if @the_user.id == @current_user.id %>
+
+    <form action="/modify_user/" method="post">
+      <label for="browser_username">Username</label>
+      <input id="browser_username" type="text" name="query_username" placeholder="Enter a username..."
+        value="<%= @current_user.username %>">
+
+      <label for="browser_private">Private?</label>
+      <input id="browser_private" type="checkbox" name="query_private" >
+
+      <button>Update user</button>
+    </form>
+
+<% end %>
 
   </dd>
 
@@ -43,7 +66,7 @@
   </ul>
 </nav>
 
-<h2>Own photos (13)</h2>
+<h2>Own photos (<%= @the_user.own_photos.count%>)</h2>
 
 <table border="1">
   <tr>
@@ -70,9 +93,7 @@
     <th></th>
   </tr>
 
-  <% @the_user.following.each do |a_follow_request|%>
-  <% persons = User.all.where({:id => a_follow_request.recipient})%>
-  <% persons.own_photos.each do |a_photo| %>
+  <% @the_user.own_photos.each do |a_photo| %>
   <tr>
     <td>
       <img src="<%= a_photo.image %>">
@@ -100,5 +121,4 @@
       </a>
     </td>
   </tr>
-  <%end%>
   <%end%>

@@ -8,8 +8,7 @@
 
 <hr>
 
-<div>
-  <div>
+
 
 <% if session.fetch(:user_id) %>
     <h2>
@@ -36,7 +35,8 @@ Add photo
 </form>
 
 <%end%>
-  </div>
+
+
 </div>
 
 <table border="1">
@@ -47,9 +47,11 @@ Add photo
     <th>Posted</th>
     <th>Likes</th>
     <th></th>
+    
   </tr>
 
   <% @list_of_photos.each do |a_photo| %>
+
     <tr>
       <td>
         <img src="<%=a_photo.image%>">
@@ -78,8 +80,3 @@ Add photo
       </td>
     </tr>
     <%end%>
-
-
-
-      
-

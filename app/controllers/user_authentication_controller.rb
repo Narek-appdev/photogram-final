@@ -1,6 +1,6 @@
 class UserAuthenticationController < ApplicationController
   # Uncomment this if you want to force users to sign in before any other actions
-  # skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie] })
+  skip_before_action(:force_user_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie] })
 
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })
@@ -61,15 +61,8 @@ class UserAuthenticationController < ApplicationController
 
   def update
     @user = @current_user
-    @user.email = params.fetch("query_email")
-    @user.password = params.fetch("query_password")
-    @user.password_confirmation = params.fetch("query_password_confirmation")
     @user.username = params.fetch("query_username")
-    @user.likes_count = params.fetch("query_likes_count")
-    @user.sent_follow_requests_count = params.fetch("query_sent_follow_requests_count")
-    @user.received_follow_requests_count = params.fetch("query_received_follow_requests_count")
-    @user.own_photos_count = params.fetch("query_own_photos_count")
-    
+
     if @user.valid?
       @user.save
 
